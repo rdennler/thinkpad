@@ -12,7 +12,6 @@ requires-python = ">=3.11"
 dependencies = []
 
 [project.scripts]
-thinkpad-check = "thinkpad.cli.check:main"
 thinkpad-lint = "thinkpad.cli.lint:main"
 thinkpad-new = "thinkpad.cli.new:main"
 thinkpad-install = "thinkpad.cli.install:main"

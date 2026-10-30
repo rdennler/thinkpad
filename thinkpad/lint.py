@@ -15,7 +15,6 @@ from pathlib import Path
 
 from . import config
 from .spec import load_env, load_skill
-from .substrate.base import COMPONENTS
 
 MAX_TUTOR_CHARS = 6000  # tutor.md loads every session
 LEAKS = re.compile(r"/Users/|[\w.+-]+@[\w-]+\.[\w.]+")
@@ -91,10 +90,3 @@ def lint_envs(envs_dir: Path = config.ENVS) -> list[str]:
                 problems.append(f"envs/{d.name}/tutor.md: {n} chars, over {MAX_TUTOR_CHARS}; it loads every session")
     return problems
 
-
-def lint_components(root: Path = config.ROOT) -> list[str]:
-    return [
-        f"missing component folder harness/{folder}"
-        for folder in COMPONENTS.values()
-        if not (root / "harness" / folder).is_dir()
-    ]

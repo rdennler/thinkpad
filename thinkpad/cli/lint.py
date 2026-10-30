@@ -15,7 +15,7 @@ from .. import lint
 
 
 def main() -> int:
-    problems = lint.lint_components() + lint.lint_skills() + lint.lint_docs() + lint.lint_envs()
+    problems = lint.lint_skills() + lint.lint_docs() + lint.lint_envs()
     for p in problems:
         print(f"FAIL {p}")
     print("ok" if not problems else f"{len(problems)} problem(s)")

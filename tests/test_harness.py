@@ -8,7 +8,7 @@ from pathlib import Path
 from thinkpad import config, lint
 from thinkpad.schedule import today_block
 from thinkpad.spec import EnvSpec, load_env, load_skill, parse_frontmatter
-from thinkpad.substrate import ClaudeCode, COMPONENTS, Substrate
+from thinkpad.cli.install import COMMANDS
 
 
 class Skills(unittest.TestCase):
@@ -94,17 +94,9 @@ class Envs(unittest.TestCase):
         self.assertFalse(s.is_active(date(2026, 1, 11)))
 
 
-class Substrates(unittest.TestCase):
-    def test_surface_covers_all_eight_components_on_disk(self):
-        sub = ClaudeCode()
-        self.assertIsInstance(sub, Substrate)
-        surface = sub.surface(config.ROOT)
-        self.assertEqual(set(surface), set(COMPONENTS))
-        self.assertEqual(lint.lint_components(), [])
-
-    def test_materialise_is_pure(self):
-        cmds = ClaudeCode().materialise(config.ROOT).commands
-        self.assertEqual(cmds[1], ("claude", "plugin", "install", "tp@thinkpad"))
+class Install(unittest.TestCase):
+    def test_installs_the_tp_plugin(self):
+        self.assertEqual(COMMANDS[1], ("claude", "plugin", "install", "tp@thinkpad"))
 
 
 class Schedule(unittest.TestCase):

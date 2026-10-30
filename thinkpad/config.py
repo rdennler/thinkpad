@@ -5,7 +5,7 @@
 # You may obtain a copy of the License at
 #
 #     https://www.apache.org/licenses/LICENSE-2.0
-"""Paths and vocabularies shared by the spec, the substrate and the CLI."""
+"""Paths and vocabularies shared by the spec, lint and the CLI."""
 
 from __future__ import annotations
 

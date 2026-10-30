@@ -38,7 +38,7 @@ The tutor interviews you, makes an env for it, and tells you the one phrase to s
 
 ## How it is built
 
-Eight editable components under [`harness/`](harness/): system prompt, guardrails, memory, tool guidance, subagents, skills, scripts, plugins. Three axes stay separate: the **method** (pedagogy), the **substrate** (the agent runtime), and the **env** (your topic, as a plain `env.toml`). Skills load straight from the repo through `.claude/skills`, so there is nothing to install. Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/CONCEPT.md](docs/CONCEPT.md) for why it exists.
+Everything that shapes the tutor lives under [`harness/`](harness/) as plain files: system prompt, guardrails, memory schema, tool guidance, subagents, skills, scripts, plugins. Your topic is data, one `env.toml` per env, and the pedagogy never has to change to add one. Skills load straight from the repo through `.claude/skills`, so there is nothing to install. Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/CONCEPT.md](docs/CONCEPT.md) for why it exists.
 
 Your data lives in `envs/`, `media/`, `tracker/` and `memory/`. They ship empty and are git-ignored by default.
 
@@ -62,11 +62,7 @@ python3 -m thinkpad.cli.status     # today's block, each env's bookmark, a graph
 python3 -m thinkpad.cli.install    # optional: install the `tp` plugin to use the tutor outside this repo
 ```
 
-`pip install -e .` adds these as `thinkpad-lint`, `thinkpad-check`, `thinkpad-status`, `thinkpad-new` and `thinkpad-install`.
-
-## Acknowledgments
-
-The architecture follows the structure of [Harness²](https://github.com/google-research/harness2) (Apache 2.0): a harness as eight editable components, a benchmark/env as a plain value, a substrate protocol, and two levels of recursion. thinkPad applies those ideas to learning instead of benchmarks. It is not affiliated with Google.
+`pip install -e .` adds these as `thinkpad-lint`, `thinkpad-status`, `thinkpad-new` and `thinkpad-install`.
 
 ## License
 
