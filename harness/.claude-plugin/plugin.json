@@ -1,0 +1,9 @@
+{
+  "name": "tp",
+  "version": "0.1.0",
+  "description": "thinkPad: a harness that turns an agent into a Socratic tutor. Learning engine, session tracking, retros, memory, and Chrome-driven reverse engineering.",
+  "author": {
+    "name": "thinkPad contributors"
+  },
+  "license": "Apache-2.0"
+}

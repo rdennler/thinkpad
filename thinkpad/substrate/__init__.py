@@ -1,0 +1,13 @@
+# Copyright 2026 thinkPad contributors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+from .base import COMPONENTS, Install, Substrate
+from .claude_code import ClaudeCode
+
+SUBSTRATES = {ClaudeCode.name: ClaudeCode}
+
+__all__ = ["COMPONENTS", "Install", "Substrate", "ClaudeCode", "SUBSTRATES"]

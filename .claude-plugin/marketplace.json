@@ -1,0 +1,13 @@
+{
+  "name": "thinkpad",
+  "owner": {
+    "name": "thinkPad contributors"
+  },
+  "plugins": [
+    {
+      "name": "tp",
+      "source": "./harness",
+      "description": "thinkPad harness: Socratic learning engine, session tracking, retros, memory, and reverse engineering skills"
+    }
+  ]
+}

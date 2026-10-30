@@ -1,0 +1,71 @@
+# thinkPad
+
+**A harness that turns Claude into a Socratic tutor.**
+
+A *harness* is the system around a model that lets it act as an agent: prompts, tools, memory, skills, orchestration. thinkPad is a harness built for one job. It makes the agent teach by asking questions, so the learner writes every line that matters and the agent never finishes the work for them.
+
+You bring a topic. thinkPad gives you an env for it, a session loop that remembers where you stopped, a schedule that tells you what to do today, retros that improve the harness, and a ladder for learning how real websites work by reverse engineering them in your own Chrome.
+
+## Start
+
+You need [Claude Code](https://claude.com/claude-code). Nothing else.
+
+```bash
+git clone <this repo> thinkPad && cd thinkPad
+claude
+```
+
+Then say what you want to learn:
+
+> I want to learn <topic>
+
+The tutor interviews you, makes an env for it, and tells you the one phrase to start. Next time, just open `claude` here and say `what should I do today`.
+
+## What you get
+
+| You say | What happens |
+|---|---|
+| "I want to learn <topic>" | `tp:new-env` interviews you and scaffolds `envs/<topic>/` |
+| "let's do my-env" | `tp:learn` runs a Socratic session from the env's spec |
+| "what should I do today" | `tp:session` reads every env's cadence and names today's block |
+| "wrap up" | `tp:session` saves the bookmark, journals the session, ticks the swim lane |
+| "quiz me" / "test me" | `tp:grill` asks only about what you have learned, never repeating a question |
+| "retro" | `tp:retro` debriefs you and queues concrete improvements to the harness |
+| "reverse engineer <url>" | `tp:reverse-engineer` walks a seven-rung ladder in your Chrome |
+| "card this" | `tp:anki` makes a flashcard in Anki, if you have it |
+
+## How it is built
+
+Eight editable components under [`harness/`](harness/): system prompt, guardrails, memory, tool guidance, subagents, skills, scripts, plugins. Three axes stay separate: the **method** (pedagogy), the **substrate** (the agent runtime), and the **env** (your topic, as a plain `env.toml`). Skills load straight from the repo through `.claude/skills`, so there is nothing to install. Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/CONCEPT.md](docs/CONCEPT.md) for why it exists.
+
+Your data lives in `envs/`, `media/`, `tracker/` and `memory/`. They ship empty and are git-ignored by default.
+
+## Docs
+
+- [Getting started](docs/GETTING-STARTED.md): your first env and first session
+- [Concept](docs/CONCEPT.md): what thinkPad is for
+- [Architecture](docs/ARCHITECTURE.md): components, axes, the two recursion loops
+- [Skill API](docs/SKILL-API.md): the manifest every skill declares
+- [Reverse engineering a site](docs/REVERSE-ENGINEERING.md): the Chrome ladder
+- [Contributing](CONTRIBUTING.md)
+
+## For contributors
+
+The Python package (3.11+, no dependencies) holds the checks and the optional plugin install. Run from the repo root, no `pip install` needed:
+
+```bash
+python3 -m thinkpad.cli.lint       # skill manifests, env specs, cross-references
+python3 -m unittest discover tests
+python3 -m thinkpad.cli.status     # today's block, each env's bookmark, a graph summary
+python3 -m thinkpad.cli.install    # optional: install the `tp` plugin to use the tutor outside this repo
+```
+
+`pip install -e .` adds these as `thinkpad-lint`, `thinkpad-check`, `thinkpad-status`, `thinkpad-new` and `thinkpad-install`.
+
+## Acknowledgments
+
+The architecture follows the structure of [Harness²](https://github.com/google-research/harness2) (Apache 2.0): a harness as eight editable components, a benchmark/env as a plain value, a substrate protocol, and two levels of recursion. thinkPad applies those ideas to learning instead of benchmarks. It is not affiliated with Google.
+
+## License
+
+Apache 2.0. See [LICENSE](LICENSE).

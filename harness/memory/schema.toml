@@ -1,0 +1,91 @@
+# The graph's type system. Read by harness/scripts/ontology.py on every write.
+# To extend it locally, add types or relations to memory/ontology/schema.toml; the overlay is
+# merged over this file (lists append, tables merge).
+#
+# Per type:    required = [...]   optional = [...]   forbidden_properties = [...]
+#              <field>_enum = [...]  restricts one field to listed values
+# Per relation: from_types / to_types (empty = any), cardinality (one_to_one | one_to_many |
+#              many_to_one), acyclic (true forbids cycles)
+version = 2
+
+[types.Env]
+required = ["name", "path"]
+optional = ["tier"]
+
+[types.Concept]
+required = ["name", "domain"]
+optional = ["definition", "refs"]  # refs: "Chapter 4", a URL, a transcript filename
+
+[types.Exercise]
+required = ["name", "env"]
+optional = ["level", "source", "status"]
+
+[types.Session]
+required = ["date", "env"]
+optional = ["unit", "mode"]
+
+[types.Learning]
+required = ["summary", "source"]  # source: retro file path, session id, or env path
+optional = ["confidence"]
+
+[types.Mnemonic]
+required = ["name", "expansion"]
+optional = ["domain"]
+
+[types.Resource]
+required = ["name", "kind"]
+optional = ["locator"]
+kind_enum = ["book", "article", "url", "pdf", "video", "recording", "tool", "course"]
+
+[types.Person]
+required = ["name"]
+optional = ["role"]
+
+[types.Project]
+required = ["name", "status"]
+optional = ["path"]
+
+[types.Card]
+required = ["note_id", "env"]  # note_id: AnkiConnect note id
+optional = ["refs"]
+
+[relations.part_of]  # membership in an env
+from_types = ["Concept", "Exercise", "Session", "Learning", "Mnemonic", "Resource", "Project", "Card"]
+to_types = ["Env"]
+
+[relations.about]
+from_types = ["Learning", "Resource"]
+to_types = ["Concept"]
+
+[relations.practices]
+from_types = ["Exercise"]
+to_types = ["Concept"]
+
+[relations.learned_in]
+from_types = ["Learning"]
+to_types = ["Session"]
+
+[relations.reinforces]
+from_types = ["Mnemonic"]
+to_types = ["Concept"]
+
+[relations.relates_to]  # generic link, any types
+from_types = []
+to_types = []
+
+[relations.uses]
+from_types = ["Project"]
+to_types = ["Concept", "Resource"]
+
+[relations.authored_by]
+from_types = ["Resource"]
+to_types = ["Person"]
+
+[relations.supersedes]  # belief revision
+from_types = ["Learning"]
+to_types = ["Learning"]
+acyclic = true
+
+[relations.refs]
+from_types = ["Card"]
+to_types = ["Concept"]

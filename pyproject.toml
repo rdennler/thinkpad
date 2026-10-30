@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thinkpad"
+version = "0.1.0"
+description = "thinkPad: a harness that turns an agent into a Socratic tutor"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+thinkpad-check = "thinkpad.cli.check:main"
+thinkpad-lint = "thinkpad.cli.lint:main"
+thinkpad-new = "thinkpad.cli.new:main"
+thinkpad-install = "thinkpad.cli.install:main"
+thinkpad-status = "thinkpad.cli.status:main"
+
+[tool.setuptools.packages.find]
+include = ["thinkpad*"]
