@@ -34,6 +34,8 @@ The tutor interviews you, makes an env for it, and tells you the one phrase to s
 | "reverse engineer <url>" | `tp:reverse-engineer` walks a seven-rung ladder in your Chrome |
 | "card this" | `tp:anki` makes a flashcard in Anki, if you have it |
 
+`tp:` is how these docs name the skills. Inside this repo they load as project skills, so Claude Code lists them by folder name (`/learn`, `/session`, `/grill`). You only see `/tp:learn` after installing the plugin (see [For contributors](#for-contributors)). Either way you rarely type the name: routing is by phrase.
+
 ## How it is built
 
 Eight editable components under [`harness/`](harness/): system prompt, guardrails, memory, tool guidance, subagents, skills, scripts, plugins. Three axes stay separate: the **method** (pedagogy), the **substrate** (the agent runtime), and the **env** (your topic, as a plain `env.toml`). Skills load straight from the repo through `.claude/skills`, so there is nothing to install. Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/CONCEPT.md](docs/CONCEPT.md) for why it exists.
