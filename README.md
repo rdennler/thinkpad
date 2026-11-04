@@ -1,5 +1,7 @@
 # thinkPad
 
+> ***This repository has been archived. Please visit [yat (your-ai-tutor)](https://github.com/rdennler/yat) instead.***
+
 **A harness that turns Claude into a Socratic tutor.**
 
 A *harness* is the system around a model that lets it act as an agent: prompts, tools, memory, skills, orchestration. thinkPad is a harness built for one job. It makes the agent teach by asking questions, so the learner writes every line that matters and the agent never finishes the work for them.
